@@ -12,4 +12,5 @@ def subscribe_fund(subscription: SubscriptionSchema):
     uc = SubscriptionFundUseCase()
     return uc.execute(
         fund_id=fund_id,
-        notification_type=notification_type)
+        notification_type=notification_type
+    )

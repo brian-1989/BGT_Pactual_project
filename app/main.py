@@ -1,4 +1,4 @@
-from app.endpoints import subscription
+from app.endpoints import subscription, cancellation
 from app.start_db import initialize_collections
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,6 +20,7 @@ initialize_collections()
 
 # Include the router for related routes
 app.include_router(subscription.router, prefix="/api/v1")
+app.include_router(cancellation.router, prefix="/api/v1")
 
 # 
 @app.get("/api/healthchecker")
