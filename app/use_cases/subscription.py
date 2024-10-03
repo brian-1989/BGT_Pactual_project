@@ -1,9 +1,16 @@
+from app.config import Settings
 from app.database import Funds, Users, Transactions
 from app.serializer import serializerTransaction
-from app.translation import error_translation, success_translation
+from app.translation import (
+    error_translation,
+    success_translation,
+    email_translation
+)
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from email.message import EmailMessage
+import smtplib, ssl
 
 # FALTA HACER EL ENVIO DE CORREO O SMS
 
@@ -28,7 +35,8 @@ class SubscriptionFundUseCase:
             subscription = Transactions.find_one(
                 {
                     "fund_id": fund_id,
-                    "transaction_type": "subscription"
+                    "transaction_type": "subscription",
+                    "status": "active",
                 }
             )
             if subscription:
@@ -54,6 +62,14 @@ class SubscriptionFundUseCase:
             Users.find_one_and_update({"_id": "1"}, {"$set": {"balance": new_amount}})
             # Record transaction
             Transactions.insert_one(transaction)
+            # Send notification via Email or SMS
+            if notification_type == "email":
+                self.send_to_email(
+                    receiver_email=get_user.get("email"),
+                    fund_name=get_fund.get("name")
+                )
+            else:
+                pass
             success_message = success_translation.get(
                 "successful_subscription"
             ).format(get_fund.get("name"), new_amount)
@@ -70,3 +86,30 @@ class SubscriptionFundUseCase:
                 ),
                 status_code=status.HTTP_400_BAD_REQUEST
             )
+
+    def send_to_email(self, receiver_email: str, fund_name:str):
+        # Port for SSL
+        port = Settings.SMTP_PORT
+        # Smtp mail server that uses gmail mail
+        smtp_server = Settings.SMTP_SERVER
+        # Sender email
+        sender_email = Settings.SENDER_EMAIL
+        # App password
+        password = Settings.PASSWORD_EMAIL
+        # Create email
+        message = EmailMessage()
+        message['Subject'] = email_translation.get(
+            "successful_subscription")
+        message['From'] = sender_email
+        message['To'] = receiver_email
+        # Message body
+        message.set_content(
+            email_translation.get(
+                "message_body"
+            ).format(fund_name)
+        )
+        # Send to email
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port=port, context=context) as server_connection:
+            server_connection.login(sender_email, password)
+            server_connection.send_message(message)

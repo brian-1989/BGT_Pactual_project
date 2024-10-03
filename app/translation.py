@@ -11,3 +11,8 @@ success_translation = {
     "successful_subscription": "La suscripción al fondo {} fue completada. El nuevo monto es de {}",
     "cancel_subscription": "La cancelación de la suscripción al fondo {} fue completada. El nuevo monto es de {}"
 }
+
+email_translation = {
+    "successful_subscription": "Suscripción Exitosa al Fondo",
+    "message_body": "Te has suscrito exitosamente al fondo {}"
+}

@@ -39,7 +39,8 @@ class CancelFundUseCase:
             subscription = Transactions.find_one(
                 {
                     "fund_id": fund_id,
-                    "transaction_type": "subscription"
+                    "transaction_type": "subscription",
+                    "status": "active"
                 }
             )
             if not subscription:
@@ -58,6 +59,10 @@ class CancelFundUseCase:
             Users.find_one_and_update({"_id": "1"}, {"$set": {"balance": new_amount}})
             # Record transaction
             Transactions.insert_one(transaction)
+            # Update subscription status
+            Transactions.find_one_and_update(
+                {"_id": subscription.get("_id")},
+                {"$set": {"status": "inactive"}})
             # Success response
             success_message = success_translation.get(
                 "cancel_subscription"

@@ -9,10 +9,12 @@ class FundTransactionsUseCase:
         try:
             all_transactions = []
             for transaction in Transactions.find():
-                del transaction["_id"]
+                id_value = transaction["_id"]
                 date_value = transaction.get("created_at")
                 transaction.update(
-                    {"created_at": str(date_value.strftime("%Y-%m-%d"))
+                    {
+                        "created_at": str(date_value.strftime("%Y-%m-%d")),
+                        "_id": str(id_value)
                 })
                 all_transactions.append(transaction)
             return JSONResponse(

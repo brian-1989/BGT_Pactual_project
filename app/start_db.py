@@ -37,6 +37,8 @@ user_information = [
     {
         "_id": "1",
         "name": "Brian Zapata Pino",
+        "email": "dzapata397@gmail.com",
+        "cellphone": "3122603428",
         "balance": 500000
     }
 ]
