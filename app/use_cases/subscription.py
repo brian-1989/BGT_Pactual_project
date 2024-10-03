@@ -1,12 +1,9 @@
 from app.database import Funds, Users, Transactions
 from app.serializer import serializerTransaction
 from app.translation import error_translation, success_translation
-from datetime import datetime
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from uuid import uuid4
-import pytz
 
 # FALTA HACER EL ENVIO DE CORREO O SMS
 
@@ -64,7 +61,7 @@ class SubscriptionFundUseCase:
                 jsonable_encoder(
                     {"success_message": str(success_message)}
                 ),
-                status_code=status.HTTP_400_BAD_REQUEST
+                status_code=status.HTTP_201_CREATED
             )
         except Exception as error:
             return JSONResponse(

@@ -1,4 +1,3 @@
-from app.database import db
 from app.schemas.cancellation import CancellationSchema
 from app.use_cases.cancellation import CancelFundUseCase
 from fastapi import APIRouter

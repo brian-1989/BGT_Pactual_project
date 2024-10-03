@@ -66,7 +66,7 @@ class CancelFundUseCase:
                 jsonable_encoder(
                     {"success_message": str(success_message)}
                 ),
-                status_code=status.HTTP_400_BAD_REQUEST
+                status_code=status.HTTP_201_CREATED
             )
         except Exception as error:
             return JSONResponse(

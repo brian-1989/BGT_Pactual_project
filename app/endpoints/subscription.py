@@ -1,4 +1,3 @@
-from app.database import db
 from app.schemas.subscription import SubscriptionSchema
 from app.use_cases.subscription import SubscriptionFundUseCase
 from fastapi import APIRouter
