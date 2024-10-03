@@ -3,40 +3,40 @@ from app.database import Funds, Users
 fund_information = [
     {
         "_id": "1",
-        "nombre": "FPV_BTG_PACTUAL_RECAUDADORA",
-        "monto_minimo": 75000,
-        "categoria": "FPV"
+        "name": "FPV_BTG_PACTUAL_RECAUDADORA",
+        "minimum_amount": 75000,
+        "category": "FPV"
     },
     {
         "_id": "2",
-        "nombre": "FPV_BTG_PACTUAL_ECOPETROL",
-        "monto_minimo": 125000,
-        "categoria": "FPV"
+        "name": "FPV_BTG_PACTUAL_ECOPETROL",
+        "minimum_amount": 125000,
+        "category": "FPV"
     },
     {
         "_id": "3",
-        "nombre": "DEUDAPRIVADA",
-        "monto_minimo": 50000,
-        "categoria": "FIC"
+        "name": "DEUDAPRIVADA",
+        "minimum_amount": 50000,
+        "category": "FIC"
     },
     {
         "_id": "4",
-        "nombre": "FDO-ACCIONES",
-        "monto_minimo": 250000,
-        "categoria": "FIC"
+        "name": "FDO-ACCIONES",
+        "minimum_amount": 250000,
+        "category": "FIC"
     },
     {
         "_id": "5",
-        "nombre": "FPV_BTG_PACTUAL_DINAMICA",
-        "monto_minimo": 100000,
-        "categoria": "FPV"
+        "name": "FPV_BTG_PACTUAL_DINAMICA",
+        "minimum_amount": 100000,
+        "category": "FPV"
     }
 ]
 
 user_information = [
     {
         "_id": "1",
-        "nombre": "Brian Zapata Pino",
+        "name": "Brian Zapata Pino",
         "balance": 500000
     }
 ]

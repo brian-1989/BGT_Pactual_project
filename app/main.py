@@ -1,4 +1,4 @@
-from app.database import db
+from app.endpoints import subscription
 from app.start_db import initialize_collections
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,13 +18,10 @@ app.add_middleware(
 # Initialize data in the DB
 initialize_collections()
 
-def get_db():
-    try:
-        yield db
-    finally:
-        db.close()
+# Include the router for related routes
+app.include_router(subscription.router, prefix="/api/v1")
 
 # 
 @app.get("/api/healthchecker")
-def root(db=Depends(get_db)):
+def root():
     return {"message": "Welcome to FastAPI with MongoDB"}
