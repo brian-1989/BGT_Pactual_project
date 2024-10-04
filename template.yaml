@@ -26,7 +26,7 @@ Resources:
           # Clone the app repository
           git clone https://github.com/brian-1989/BGT_Pactual_project.git
 
-          # Crear el archivo docker-compose.yml
+          # Create the docker-compose.yml file
           cat << 'EOF' > docker-compose.yml
           version: '3.8'
           services:
@@ -51,7 +51,7 @@ Resources:
             mongo_data:  # A volume is defined for MongoDB data
           EOF
 
-          # Crear el archivo Dockerfile
+          # Create the Dockerfile
           cat << 'EOF' > Dockerfile
           # Use an official Python base image
           FROM python:3.11
@@ -75,6 +75,6 @@ Resources:
           CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
           EOF
 
-          # Ejecutar Docker Compose
+          # Run Docker Compose
           docker compose build --no-cache
           docker compose up -d
