@@ -11,6 +11,9 @@ class TestForFundSubscription():
         mock_serializer = mocker.patch('app.serializer.serializerTransaction')
         mock_send_email = mocker.patch.object(SubscriptionFundUseCase, 'send_to_email')
 
+        mocker.patch('app.database.Users.find_one_and_update')
+        mocker.patch('app.database.Transactions.insert_one')
+
         fund_data = {
             "_id": 1,
             "name": "Fund Test",
@@ -56,6 +59,9 @@ class TestForFundSubscription():
         mock_transactions = mocker.patch('app.database.Transactions.find_one')
         mock_serializer = mocker.patch('app.serializer.serializerTransaction')
         mock_send_sms = mocker.patch.object(SubscriptionFundUseCase, 'send_to_sms')
+
+        mocker.patch('app.database.Users.find_one_and_update')
+        mocker.patch('app.database.Transactions.insert_one')
 
         fund_data = {
             "_id": 1,

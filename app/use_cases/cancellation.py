@@ -23,27 +23,27 @@ class CancelFundUseCase:
                 raise Exception(
                     error_translation.get("user_not_found"))
             # Check if the user has already canceled the subscription to the fund
-            subscription = Transactions.find_one(
+            inactive_subscription = Transactions.find_one(
                 {
                     "fund_id": fund_id,
                     "transaction_type": "cancellation"
                 }
             )
-            if subscription:
+            if inactive_subscription:
                 raise Exception(
                     error_translation.get(
                         "canceled_the_subscription"
                     ).format(get_user.get("name"), get_fund.get("name"))
                 )
             # Check if the user has an active subscription to the fund
-            subscription = Transactions.find_one(
+            active_subscription = Transactions.find_one(
                 {
                     "fund_id": fund_id,
                     "transaction_type": "subscription",
                     "status": "active"
                 }
             )
-            if not subscription:
+            if not active_subscription:
                 raise Exception(
                     error_translation.get(
                         "not_subscribed_to_the_fund"
@@ -55,13 +55,13 @@ class CancelFundUseCase:
                 transaction_type="cancellation"
             )
             # Update user balance
-            new_amount = get_user.get("balance") + subscription["amount"]
+            new_amount = get_user.get("balance") + active_subscription["amount"]
             Users.find_one_and_update({"_id": "1"}, {"$set": {"balance": new_amount}})
             # Record transaction
             Transactions.insert_one(transaction)
             # Update subscription status
             Transactions.find_one_and_update(
-                {"_id": subscription.get("_id")},
+                {"_id": active_subscription.get("_id")},
                 {"$set": {"status": "inactive"}})
             # Success response
             success_message = success_translation.get(
