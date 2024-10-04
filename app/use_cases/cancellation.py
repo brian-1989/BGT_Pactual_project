@@ -5,6 +5,7 @@ from fastapi import status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
+
 class CancelFundUseCase:
 
     def __init__(self) -> None:
@@ -22,7 +23,8 @@ class CancelFundUseCase:
             if not get_user:
                 raise Exception(
                     error_translation.get("user_not_found"))
-            # Check if the user has already canceled the subscription to the fund
+            # Check if the user has already canceled the
+            # subscription to the fund
             inactive_subscription = Transactions.find_one(
                 {
                     "fund_id": fund_id,
@@ -55,8 +57,10 @@ class CancelFundUseCase:
                 transaction_type="cancellation"
             )
             # Update user balance
-            new_amount = get_user.get("balance") + active_subscription["amount"]
-            Users.find_one_and_update({"_id": "1"}, {"$set": {"balance": new_amount}})
+            new_amount = get_user.get("balance") + \
+                active_subscription["amount"]
+            Users.find_one_and_update(
+                {"_id": "1"}, {"$set": {"balance": new_amount}})
             # Record transaction
             Transactions.insert_one(transaction)
             # Update subscription status

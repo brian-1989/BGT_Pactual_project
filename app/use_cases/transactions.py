@@ -3,6 +3,7 @@ from fastapi import status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
+
 class FundTransactionsUseCase:
 
     def execute(self):
@@ -15,7 +16,7 @@ class FundTransactionsUseCase:
                     {
                         "created_at": str(date_value.strftime("%Y-%m-%d")),
                         "_id": str(id_value)
-                })
+                    })
                 all_transactions.append(transaction)
             return JSONResponse(
                 jsonable_encoder(all_transactions),

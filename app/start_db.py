@@ -55,6 +55,8 @@ items = [
 ]
 
 # Insert information into the collection
+
+
 def initialize_collections():
     for item in items:
         collection = item.get("collection")

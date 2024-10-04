@@ -10,7 +10,8 @@ from fastapi import status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from email.message import EmailMessage
-import smtplib, ssl
+import smtplib
+import ssl
 import vonage
 
 
@@ -58,8 +59,10 @@ class SubscriptionFundUseCase:
                 transaction_type="subscription"
             )
             # Update user balance
-            new_amount = get_user.get("balance") - get_fund.get("minimum_amount")
-            Users.find_one_and_update({"_id": "1"}, {"$set": {"balance": new_amount}})
+            new_amount = get_user.get("balance") - \
+                get_fund.get("minimum_amount")
+            Users.find_one_and_update(
+                {"_id": "1"}, {"$set": {"balance": new_amount}})
             # Record transaction
             Transactions.insert_one(transaction)
             # Send notification via Email or SMS
@@ -91,7 +94,7 @@ class SubscriptionFundUseCase:
                 status_code=status.HTTP_400_BAD_REQUEST
             )
 
-    def send_to_email(self, receiver_email: str, fund_name:str):
+    def send_to_email(self, receiver_email: str, fund_name: str):
         # Port for SSL
         port = Settings.SMTP_PORT
         # Smtp mail server that uses gmail mail
@@ -114,7 +117,9 @@ class SubscriptionFundUseCase:
         )
         # Send to email
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(smtp_server, port=port, context=context) as server_connection:
+        with smtplib.SMTP_SSL(
+            smtp_server, port=port, context=context
+        ) as server_connection:
             server_connection.login(sender_email, password)
             server_connection.send_message(message)
 

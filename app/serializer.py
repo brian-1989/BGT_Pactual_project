@@ -1,6 +1,7 @@
 from app.utils import create_date
 from uuid import uuid4
 
+
 def serializerTransaction(fund: dict, transaction_type: str) -> dict:
     status = "active" if transaction_type == "subscription"\
         else "inactive"

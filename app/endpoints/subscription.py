@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+
 @router.post("/subscribe_fund")
 def subscribe_fund(subscription: SubscriptionSchema):
     fund_id = subscription.fund_id
