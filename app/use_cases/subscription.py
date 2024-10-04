@@ -13,7 +13,6 @@ from email.message import EmailMessage
 import smtplib, ssl
 import vonage
 
-# FALTA HACER EL ENVIO DE CORREO O SMS
 
 class SubscriptionFundUseCase:
 
