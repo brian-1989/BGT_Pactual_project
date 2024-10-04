@@ -1,7 +1,7 @@
 # BGT PACTUAL Project
 
 ## **Description**
-The BGT Pactual project is a web application developed in FastAPI. It allows the user to subscribe to the funds offered by the bank, and each fund has a minimum subscription amount. The funds offered are as follows: the Voluntary Pension Fund (FPV) and Collective Investment Funds (FICs). It also allows the user to opt out or unsubscribe from a fund, and when this happens, the client is refunded the subscription amount. The platform provides the user with the ability to view all their fund transactions (Openings and Cancellations).
+The BGT Pactual project is a web application developed in FastAPI. It allows the user to subscribe to the funds offered by the bank, and each fund has a minimum subscription amount. When the user subscribes, a notification can be sent via Email or SMS. The funds offered are as follows: the Voluntary Pension Fund (FPV) and Collective Investment Funds (FICs). It also allows the user to opt out or unsubscribe from a fund, and when this happens, the client is refunded the subscription amount. The platform provides the user with the ability to view all their fund transactions (Openings and Cancellations).
 
 
 ## **Table of Contents**
