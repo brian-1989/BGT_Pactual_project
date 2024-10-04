@@ -28,10 +28,11 @@ class TestForFundCancellation:
         transaction_data = {
             "transaction_id": "123",
             "fund_id": "1",
-            "fund_name": "Tech Fund",
+            "fund_name": "Fund Test",
             "transaction_type": "subscription",
             "amount": 100,
-            "status": "active"
+            "status": "active",
+            "created_at": "2023-10-01"
         }
         mocker.patch(
             'app.database.Transactions.find_one',
@@ -108,10 +109,11 @@ class TestForFundCancellation:
         transaction_data = {
             "transaction_id": "123",
             "fund_id": "1",
-            "fund_name": "Tech Fund",
+            "fund_name": "Fund Test",
             "transaction_type": "cancellation",
             "amount": 100,
-            "status": "inactive"
+            "status": "inactive",
+            "created_at": "2023-10-01"
         }
 
         mock_funds.return_value = fund_data

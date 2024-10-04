@@ -29,10 +29,11 @@ class TestForFundSubscription():
         transaction_data = {
             "transaction_id": "123",
             "fund_id": "1",
-            "fund_name": "Tech Fund",
+            "fund_name": "Fund Test",
             "transaction_type": "subscription",
             "amount": 100,
-            "status": "active"
+            "status": "active",
+            "created_at": "2023-10-01"
         }
 
         mock_funds.return_value = fund_data
@@ -78,10 +79,11 @@ class TestForFundSubscription():
         transaction_data = {
             "transaction_id": "123",
             "fund_id": "1",
-            "fund_name": "Tech Fund",
+            "fund_name": "Fund Test",
             "transaction_type": "subscription",
             "amount": 100,
-            "status": "active"
+            "status": "active",
+            "created_at": "2023-10-01"
         }
 
         mock_funds.return_value = fund_data
@@ -155,10 +157,11 @@ class TestForFundSubscription():
         transaction_data = {
             "transaction_id": "123",
             "fund_id": "1",
-            "fund_name": "Tech Fund",
+            "fund_name": "Fund Test",
             "transaction_type": "subscription",
             "amount": 100,
-            "status": "active"
+            "status": "active",
+            "created_at": "2023-10-01"
         }
 
         mock_funds.return_value = fund_data
@@ -196,10 +199,11 @@ class TestForFundSubscription():
         transaction_data = {
             "transaction_id": "123",
             "fund_id": "1",
-            "fund_name": "Tech Fund",
+            "fund_name": "Fund Test",
             "transaction_type": "subscription",
             "amount": 100,
-            "status": "active"
+            "status": "active",
+            "created_at": "2023-10-01"
         }
 
         mock_funds.return_value = fund_data
