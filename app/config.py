@@ -7,3 +7,5 @@ class Settings:
     SMTP_PORT = config("SMTP_PORT", cast=int)
     SENDER_EMAIL = config("SENDER_EMAIL", cast=str)
     PASSWORD_EMAIL = config("PASSWORD_EMAIL", cast=str)
+    VONAGE_KEY = config("VONAGE_KEY", cast=str)
+    VONAGE_SECRET = config("VONAGE_SECRET", cast=str)

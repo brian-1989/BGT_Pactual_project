@@ -11,6 +11,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from email.message import EmailMessage
 import smtplib, ssl
+import vonage
 
 # FALTA HACER EL ENVIO DE CORREO O SMS
 
@@ -69,7 +70,11 @@ class SubscriptionFundUseCase:
                     fund_name=get_fund.get("name")
                 )
             else:
-                pass
+                self.send_to_sms(
+                    cellphone=get_user.get("cellphone"),
+                    fund_name=get_fund.get("name")
+                )
+            # Successful response
             success_message = success_translation.get(
                 "successful_subscription"
             ).format(get_fund.get("name"), new_amount)
@@ -113,3 +118,21 @@ class SubscriptionFundUseCase:
         with smtplib.SMTP_SSL(smtp_server, port=port, context=context) as server_connection:
             server_connection.login(sender_email, password)
             server_connection.send_message(message)
+
+    def send_to_sms(self, cellphone: str, fund_name: str):
+        # Vonage credentials
+        client = vonage.Client(
+            key=Settings.VONAGE_KEY,
+            secret=Settings.VONAGE_SECRET
+        )
+        # Send to sms
+        sms = vonage.Sms(client)
+        sms.send_message(
+            {
+                "from": "BGT Pactual",
+                "to": cellphone,
+                "text": email_translation.get(
+                    "message_body"
+                ).format(fund_name)
+            }
+        )
