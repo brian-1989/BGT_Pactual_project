@@ -37,7 +37,7 @@ pip install -r requirements.txt
 ### **File .env**
 Add the .env file, which stores the database credentials. This file was sent to the email address of the sender of the test. If you wish, you can also write to the developer of the test. The details are in the author.
 
-### **Run the application**
+### **Run the Application**
 ```bash
 uvicorn app.main:app --reload
 ````
@@ -88,7 +88,7 @@ pytest test/
 	# Expected output: A JSON response indicating the success or failure of the fund cancellation process. 
 	````
 
-### - **Get All Transactions**
+### - **Get all transactions**
 1. **Description:** This endpoint retrieves all transactions made by the user.
 2. **Path:** /api/v1/all_transactions
 3. **HTTP Method:** GET
@@ -102,4 +102,4 @@ pytest test/
 
 ## **Autor**  
 :man_technologist: **Briayan Zapata Pino**  
-* [LinkedIn]([https://www.linkedin.com/in/briayan-zapata/](https://www.linkedin.com/in/briayan-zapata/))
+* [LinkedIn](https://www.linkedin.com/in/briayan-zapata/)
