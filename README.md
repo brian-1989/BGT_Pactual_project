@@ -13,8 +13,16 @@ The BGT Pactual project is a web application developed in FastAPI. It allows the
 ## **Installation**
 
 ### **Prerequisites**
-- Python 3.11+
+- Docker
+- Docker Compose
+- Docker Desktop
 - Git
+
+### **Install docker**
+If you don't have Docker, Docker Compose, and Docker Desktop installed on your machine, I suggest these links to do so.
+* [Docker](https://docs.docker.com/engine/install/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ### **Clone the repository**
 ```bash
@@ -22,24 +30,18 @@ git clone https://github.com/brian-1989/BGT_Pactual_project.git
 cd Bgt_Pactual_project/
 ```
 
-### **Create and Activate a Virtual Environment**
-```bash
-python -m venv venv
-source venv/bin/activate
-````
-
-### **Install Dependencies**
-```bash
-pip install -r requirements.txt
-````
-
 ## **Use**
 ### **File .env**
 Add the .env file, which stores the database credentials. This file was sent to the email address of the sender of the test. If you wish, you can also write to the developer of the test. The details are in the author.
 
-### **Run the Application**
+### **Build the application images**
 ```bash
-uvicorn app.main:app --reload
+docker compose build --no-cache
+````
+
+### **Run the application by starting the containers**
+```bash
+docker compose up -d
 ````
 
 ### **Run Unit Tests**
@@ -88,7 +90,7 @@ pytest test/
 	# Expected output: A JSON response indicating the success or failure of the fund cancellation process. 
 	````
 
-### - **Get all transactions**
+### - **Get All Transactions**
 1. **Description:** This endpoint retrieves all transactions made by the user.
 2. **Path:** /api/v1/all_transactions
 3. **HTTP Method:** GET

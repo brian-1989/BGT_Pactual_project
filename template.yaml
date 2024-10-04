@@ -1,0 +1,80 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Plantilla para desplegar una aplicación FastAPI con MongoDB en EC2.
+
+Resources:
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref MyKeyPair
+      ImageId: ami-0abcdef1234567890
+      UserData: 
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          yum install -y python3-pip
+
+          # Install Docker
+          amazon-linux-extras install docker -y
+          service docker start
+          usermod -a -G docker ec2-user
+
+          # Install Docker Compose
+          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+
+          # Clone the app repository
+          git clone https://github.com/brian-1989/BGT_Pactual_project.git
+
+          # Crear el archivo docker-compose.yml
+          cat << 'EOF' > docker-compose.yml
+          version: '3.8'
+          services:
+            database:
+              image: mongo:latest
+              ports:
+                - "27017:27017"
+              volumes:
+                - mongo_data:/data/db
+            backend:
+              build:
+                context: .
+                dockerfile: Dockerfile
+              ports:
+                - "8000:8000"
+              environment:
+                - MONGO_URI=mongodb://mongo:27017
+              depends_on:
+                - database
+
+          volumes:
+            mongo_data:  # A volume is defined for MongoDB data
+          EOF
+
+          # Crear el archivo Dockerfile
+          cat << 'EOF' > Dockerfile
+          # Use an official Python base image
+          FROM python:3.11
+
+          # Set the working directory inside the container
+          WORKDIR /app
+
+          # Copy the requirements files to the image
+          COPY requirements.txt .
+
+          # Instalar las dependencias
+          RUN pip install --no-cache-dir -r requirements.txt
+
+          # Copy the rest of the application
+          COPY . .
+
+          # Expose the application's port
+          EXPOSE 8000
+
+          # Command to run the FastAPI application using Uvicorn
+          CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+          EOF
+
+          # Ejecutar Docker Compose
+          docker compose build --no-cache
+          docker compose up -d
